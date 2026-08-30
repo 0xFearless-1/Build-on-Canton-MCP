@@ -1,5 +1,5 @@
 {
-  "_version": "1.1.0",
+  "_version": "1.2.0",
   "_updatedAt": "2026-03",
   "_updatedBy": "Jatin, DevRel, Canton Foundation",
   "Note": "This is JSON is enhanced by AI to provide structured data for the Canton MCP server. Kindly maintain the same structure and formatting when updating.",
@@ -14,14 +14,14 @@
     },
     {
       "name": "@daml/ledger",
-      "replacement": "@c7/ledger",
-      "note": "@daml/ledger is deprecated. Use community-maintained @c7/ledger.",
+      "replacement": "@c7-digital/ledger",
+      "note": "@daml/ledger is deprecated. Use community-maintained @c7-digital/ledger.",
       "since": "Canton 3.3+"
     },
     {
       "name": "@daml/react",
-      "replacement": "@c7/react",
-      "note": "@daml/react is deprecated. Use community-maintained @c7/react.",
+      "replacement": "@c7-digital/react",
+      "note": "@daml/react is deprecated. Use community-maintained @c7-digital/react.",
       "since": "Canton 3.3+"
     },
     {
@@ -74,7 +74,7 @@
     },
     {
       "name": "daml ledger allocate-parties",
-      "replacement": "POST /v2/parties/allocate on JSON Ledger API",
+      "replacement": "POST /v2/parties on JSON Ledger API",
       "note": "Use the JSON Ledger API (port 7575) or gRPC PartyManagementService.",
       "since": "Canton 3.4"
     },
@@ -513,11 +513,11 @@
         "Format: <hint>::<namespace_fingerprint> e.g. alice::12200b11a778...",
         "Party Name: max 185 chars [a-zA-Z0-9_], unique in namespace",
         "Fingerprint: from validator's key (internal) or external signing key",
-        "Allocate via Admin API or JSON Ledger API POST /v2/parties/allocate",
+        "Allocate via Admin API or JSON Ledger API POST /v2/parties",
         "External parties retain own signing keys for security",
         "Avoid ephemeral parties — one party per wallet/account"
       ],
-      "api_example": "curl -d '{\"partyIdHint\":\"Alice\", \"identityProviderId\": \"\"}' -H 'Content-Type: application/json' -X POST localhost:7575/v2/parties/allocate"
+      "api_example": "curl -d '{\"partyIdHint\":\"Alice\", \"identityProviderId\": \"\"}' -H 'Content-Type: application/json' -X POST localhost:7575/v2/parties"
     },
 
   "cip_0103_standard": {
@@ -818,11 +818,19 @@
     }
   },
   "VERSIONS": {
-    "canton_sdk": "3.4",
-    "splice": "0.5.0",
+    "canton_sdk": "3.5.11",
+    "canton_sdk_source": "https://github.com/digital-asset/canton/releases/tag/v3.5.11",
+    "splice": "0.7.0",
+    "splice_source": "https://github.com/canton-network/splice/tree/0.7.0",
+    "verified_at": "2026-08-01T23:20:00Z",
+    "compatibility_baseline": {
+      "canton_sdk": "3.4",
+      "splice": "0.5.0",
+      "note": "Minimum baseline used by version-specific migration and deprecation entries in this knowledge base."
+    },
     "dpm_install": "curl https://get.digitalasset.com/install/install.sh | sh",
     "prerequisites": "JDK 17+, VS Code",
-    "note": "daml-assistant still works for legacy Canton 3.3 but NOT recommended for new projects."
+    "note": "canton_sdk and splice are the latest reviewed upstream release and release tag, not a claim about versions deployed on every Canton network. Verify network-specific versions independently. daml-assistant remains a legacy Canton 3.3 tool and is not recommended for new projects."
   },
   "ZENITH": {
     "name": "Zenith",
@@ -849,7 +857,7 @@
     },
     {
       "question": "How do I create a party?",
-      "answer": "curl -d '{\"partyIdHint\":\"Alice\",\"identityProviderId\":\"\"}' -H 'Content-Type: application/json' -X POST localhost:7575/v2/parties/allocate\n\nReturns: {\"party\":\"Alice::1220...\"}\n\nIMPORTANT: Cannot generate party IDs locally (unlike ETH). Need running participant node."
+      "answer": "curl -d '{\"partyIdHint\":\"Alice\",\"identityProviderId\":\"\"}' -H 'Content-Type: application/json' -X POST localhost:7575/v2/parties\n\nReturns: {\"party\":\"Alice::1220...\"}\n\nIMPORTANT: Cannot generate party IDs locally (unlike ETH). Need running participant node."
     },
     {
       "question": "How do I create a contract?",
@@ -920,7 +928,7 @@
     },
     {
       "question": "TypeScript libraries?",
-      "answer": "1. Generate stubs from JSON API OpenAPI spec (openapi-fetch)\n2. dpm codegen-js or dpm codegen-alpha-typescript for Daml bindings\n3. @c7/ledger + @c7/react (NOT deprecated @daml/ledger)\n\nTutorial: https://docs.canton.network/reference/typescript#daml-types"
+      "answer": "1. Generate stubs from JSON API OpenAPI spec (openapi-fetch)\n2. dpm codegen-js or dpm codegen-alpha-typescript for Daml bindings\n3. @c7-digital/ledger + @c7-digital/react (NOT deprecated @daml/ledger)\n\nTutorial: https://docs.canton.network/reference/typescript#daml-types"
     },
     {
       "question": "What is Zenith?",
@@ -936,7 +944,7 @@
     },
     {
       "question": "Featured application?",
-      "answer": "1. Apply via tokenomics committee form\n2. Create FeaturedAppActivityMarker for important events (transfers, mint/burn)\n3. ~$1 USD reward per marker (CIP-0078)\n4. Self-feature on DevNet for testing\nDocs: https://docs.canton.network/appdev/deep-dives/featured-app-activity-marker#featured-app-activity-marker"
+      "answer": "1. Apply via tokenomics committee form\n2. Create FeaturedAppActivityMarker for important events (transfers, mint/burn)\n3. ~$1 USD reward per marker (CIP-0047)\n4. Self-feature on DevNet for testing\nDocs: https://docs.canton.network/appdev/deep-dives/featured-app-activity-marker#featured-app-activity-marker"
     },
     {
       "question": "Signatories and observers?",
